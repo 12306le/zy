@@ -1,62 +1,87 @@
 // =======================================================================
-//  🚀 你的专属导航页配置文件
-//  你所有的自定义修改都在这里进行！
+// ★ 第1步: 配置你的分类
 // =======================================================================
-
-// ★ 第1步: 配置你的分类导航
-// =======================================================================
-// - id:    分类的唯一标识，英文字母，不要重复。
-// - name:  分类显示在页面上的名称。
-// - svg:   分类的图标代码，你可以从 https://heroicons.com/ 找免费图标，点击 "Copy SVG" 即可。
+// - id:      分类的唯一标识符（英文），请勿重复。
+// - name:    分类的显示名称。
+// - svg:     分类的SVG图标代码 (可以从 https://lucide.dev/ 网站查找并复制)。
 const navCategories = [
-    // --- 在这里添加或修改你的分类 ---
     {
-        id: 'hoik',  // 唯一ID
-        name: 'Hoik 服务', // 显示的名称
-        svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0l15.482 0m0 0a50.57 50.57 0 01-2.658-.813m2.658.814a50.57 50.57 0 002.658-.813m0 0l-15.482 0"/></svg>' // 图标
+        id: 'work',
+        name: '工作',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'
+    },
+    {
+        id: 'media',
+        name: '影音',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-popcorn"><path d="M18 8a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2"/><path d="m10 12 1 6"/><path d="m14 12-1 6"/><path d="M18 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"/><path d="M6 12H4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2"/><path d="M18 18h-2a4 4 0 0 1-4-4h0a4 4 0 0 1-4 4H6"/></svg>'
     },
     {
         id: 'tools',
-        name: '常用工具',
-        svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>'
+        name: '工具',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'
     },
-    //  示例: 如何添加一个 "影音" 分类
-    // {
-    //     id: 'media',
-    //     name: '影音娱乐',
-    //     svg: '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15.91 11.672a.375.375 0 010 .656l-5.603 3.113a.375.375 0 01-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112z" /></svg>'
-    // },
+    {
+        id: 'memo', // <-- 新增的备忘录分类ID
+        name: '备忘录',
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-notebook-pen"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 12h4"/><path d="M2 18h2"/><path d="M2 6h4"/><path d="m18 2-3 3 2 2 3-3"/><path d="M19.5 7.5 17 5"/></svg>'
+    }
 ];
 
-
-// ★ 第2步: 配置你的网站链接
 // =======================================================================
-// - category: 网站所属分类的 `id` (必须和上面你定义的id一致)。
-// - name:     网站的显示名称。
-// - url:      网站的完整链接。
+// ★ 第2步: 配置你的网站链接和备忘录内容
+// =======================================================================
+// - category: 所属分类的 `id`。
+// - name:     显示名称。
+// - url:      (可选) 网站链接。如果这是一个备忘录条目，可以留空。
+// - memo:     (可选) 备忘录的详细文字内容。
 const siteData = [
-    // --- 在这里添加或修改你的网站 ---
+    // --- 网站链接示例 ---
     {
-        category: 'hoik',          // 归属分类的ID
-        name: 'AI Chat',           // 显示名称
-        url: 'https://ai.hoik.de'  // 网址
+        category: 'work',
+        name: 'GitHub',
+        url: 'https://github.com'
     },
     {
-        category: 'hoik',
-        name: 'Pan',
-        url: 'https://pan.hoik.de'
+        category: 'work',
+        name: 'VSCode',
+        url: 'https://code.visualstudio.com/'
     },
-
-    // 示例: 如何添加一个 "Bilibili" 到 "影音娱乐" 分类 (如果你创建了该分类)
-    // {
-    //     category: 'media',
-    //     name: 'Bilibili',
-    //     url: 'https://www.bilibili.com'
-    // },
-    // 示例: 如何添加一个 "在线PS" 到 "常用工具" 分类
-    // {
-    //     category: 'tools',
-    //     name: '在线PS',
-    //     url: 'https://www.photopea.com/'
-    // },
+    {
+        category: 'media',
+        name: 'Bilibili',
+        url: 'https://www.bilibili.com'
+    },
+    {
+        category: 'media',
+        name: 'YouTube',
+        url: 'https://www.youtube.com'
+    },
+    {
+        category: 'tools',
+        name: '在线PS',
+        url: 'https://www.photopea.com/'
+    },
+    {
+        category: 'tools',
+        name: '菜鸟工具',
+        url: 'https://c.runoob.com/'
+    },
+    
+    // --- 备忘录内容示例 (请将它们放在 `memo` 分类下) ---
+    {
+        category: 'memo',
+        name: '购物清单',
+        memo: '牛奶、鸡蛋、面包、咖啡豆'
+    },
+    {
+        category: 'memo',
+        name: '项目TODO',
+        memo: '1. 完成首页UI调整。<br>2. 测试移动端兼容性。<br>3. 准备周五的演示PPT。' // <br>可以用来换行
+    },
+    {
+        category: 'memo',
+        name: '常用命令',
+        url: '#', // 如果希望它能点击但又不去任何地方, url可以写'#'
+        memo: 'Git提交: git commit -m "..."<br>服务器重启: sudo reboot'
+    }
 ];
