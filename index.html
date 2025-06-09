@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的导航页</title>
     <style>
-        /* CSS样式和之前一样，无需改动 */
         :root { --bg-image: url('https://images.unsplash.com/photo-1507525428034-b723a9ce6890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); --text-color: #f0f0f0; --glass-bg: rgba(22, 22, 22, 0.4); --glass-border: rgba(255, 255, 255, 0.1); --highlight-bg: rgba(255, 255, 255, 0.15); --highlight-active-bg: rgba(80, 150, 255, 0.3); --font-family: 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--font-family); background-image: var(--bg-image); background-size: cover; background-position: center; background-attachment: fixed; color: var(--text-color); overflow: hidden; }
@@ -23,13 +22,22 @@
         .main-content::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.3); border-radius: 3px; }
         .content-section { display: none; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 30px; animation: fadeIn 0.5s ease; }
         .content-section.active { display: grid; }
+        .content-section.memo-section { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); } /* 备忘录特殊布局 */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* 网站链接样式 */
         .app-link { display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .app-link:hover { transform: translateY(-8px); }
-        .app-icon { width: 80px; height: 80px; border-radius: 22px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s ease; font-size: 24px; font-weight: bold; }
+        .app-icon { width: 80px; height: 80px; border-radius: 22px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s ease; overflow: hidden; }
         .app-link:hover .app-icon { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
-        .app-icon img { width: 50px; height: 50px; border-radius: 10px; }
+        .app-icon-letter { font-size: 36px; font-weight: bold; line-height: 1; text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
         .app-link span { font-size: 14px; color: var(--text-color); text-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+
+        /* 备忘录卡片样式 */
+        .memo-card { background: var(--glass-bg); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; line-height: 1.6; }
+        .memo-card-title { font-size: 16px; font-weight: 600; margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--glass-border); }
+        .memo-card-content { font-size: 14px; opacity: 0.9; word-wrap: break-word; }
+
         @media (max-width: 768px) {
             .sidebar { top: auto; bottom: 0; width: 100%; height: 80px; flex-direction: row; justify-content: space-around; align-items: center; padding: 10px 0; border-right: none; border-top: 1px solid var(--glass-border); }
             .nav-item { width: auto; height: 100%; padding: 10px 5px; margin-bottom: 0; flex-grow: 1; }
@@ -37,13 +45,14 @@
             .nav-item span { font-size: 12px; margin-top: 4px; }
             .main-content { margin-left: 0; padding: 20px 20px 100px 20px; }
             .content-section { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 20px; }
+            .content-section.memo-section { grid-template-columns: 1fr; } /* 移动端备忘录占满一行 */
             .app-icon { width: 64px; height: 64px; border-radius: 18px; }
-            .app-icon img { width: 40px; height: 40px; border-radius: 8px; }
+            .app-icon-letter { font-size: 28px; }
+            .memo-card { padding: 15px; }
         }
     </style>
 </head>
 <body>
-
     <nav class="sidebar"></nav>
     <main class="main-content"></main>
 
@@ -54,42 +63,57 @@
             const mainContent = document.querySelector('.main-content');
 
             if (typeof navCategories === 'undefined' || typeof siteData === 'undefined') {
-                mainContent.innerHTML = '<h1>错误: 无法加载 config.js 文件或文件内容不正确。请检查文件是否存在且路径正确。</h1>';
+                mainContent.innerHTML = '<h1>错误: 无法加载 config.js 文件或文件内容不正确。</h1>';
                 return;
             }
 
+            // --- 步骤1: 生成侧边栏和内容区域 ---
             navCategories.forEach((category, index) => {
                 const isActive = index === 0 ? 'active' : '';
+                // 为备忘录分类添加一个特殊的 class
+                const sectionClass = category.id === 'memo' ? 'memo-section' : '';
+
                 sidebar.innerHTML += `<div class="nav-item ${isActive}" data-target="${category.id}">${category.svg}<span>${category.name}</span></div>`;
-                mainContent.innerHTML += `<section id="${category.id}" class="content-section ${isActive}"></section>`;
+                mainContent.innerHTML += `<section id="${category.id}" class="content-section ${sectionClass} ${isActive}"></section>`;
             });
 
+            // --- 步骤2: 根据配置文件生成内容 ---
             siteData.forEach(site => {
                 const container = document.getElementById(site.category);
-                if (container) {
-                    const domain = new URL(site.url).hostname;
-                    
-                    // ===================================================================
-                    //  ★ 主要修改点：更换了图标API服务 ★
-                    //  从 Google API 更换为 Iowen API，在国内访问更稳定。
-                    // ===================================================================
-                    const iconUrl = `https://api.iowen.cn/favicon/${domain}.png`;
+                if (!container) return; // 如果找不到对应的分类容器，则跳过
 
-                    const fallbackLetter = site.name.charAt(0).toUpperCase();
+                let itemHTML = '';
 
-                    const linkHTML = `
+                // 判断是备忘录还是网站链接
+                if (site.memo) {
+                    // --- 生成备忘录卡片 ---
+                    itemHTML = `
+                        <div class="memo-card">
+                            <div class="memo-card-title">${site.name}</div>
+                            <div class="memo-card-content">${site.memo}</div>
+                        </div>
+                    `;
+                    // 如果备忘录也有链接，则用a标签包裹
+                    if (site.url) {
+                        itemHTML = `<a href="${site.url}" target="_blank" style="text-decoration:none;">${itemHTML}</a>`;
+                    }
+                } else if (site.url) {
+                    // --- 生成网站链接 (使用首字母作为图标) ---
+                    const firstLetter = site.name.charAt(0).toUpperCase();
+                    itemHTML = `
                         <a href="${site.url}" target="_blank" class="app-link">
                             <div class="app-icon">
-                                <img src="${iconUrl}" alt="${site.name} icon"
-                                     onerror="this.style.display='none'; this.parentElement.innerHTML += '<span>${fallbackLetter}</span>';">
+                                <span class="app-icon-letter">${firstLetter}</span>
                             </div>
                             <span>${site.name}</span>
                         </a>
                     `;
-                    container.innerHTML += linkHTML;
                 }
+
+                container.innerHTML += itemHTML;
             });
 
+            // --- 步骤3: 绑定侧边栏点击事件 ---
             const navItems = document.querySelectorAll('.nav-item');
             const contentSections = document.querySelectorAll('.content-section');
             navItems.forEach(item => {
