@@ -1,5 +1,5 @@
 // =======================================================================
-// ★ 第1步: 配置你的分类
+// ★ 第1步: 配置你的分类qweqeqeqwedqweqweq
 // =======================================================================
 // - id:      分类的唯一标识符（英文），请勿重复。
 // - name:    分类的显示名称。
@@ -9,13 +9,13 @@ const navCategories = [
         id: 'work',
         name: '工作',
         svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>'
-    },
+    },dadaw
     {
         id: 'media',
         name: '影音',
         svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-popcorn"><path d="M18 8a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2"/><path d="m10 12 1 6"/><path d="m14 12-1 6"/><path d="M18 12h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"/><path d="M6 12H4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2"/><path d="M18 18h-2a4 4 0 0 1-4-4h0a4 4 0 0 1-4 4H6"/></svg>'
     },
-    {
+    {123
         id: 'tools',
         name: '工具',
         svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wrench"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'
